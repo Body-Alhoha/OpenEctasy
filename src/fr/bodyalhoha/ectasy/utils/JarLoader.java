@@ -29,10 +29,14 @@ public class JarLoader {
 
     public void loadJar() throws Exception{
         File inputFile = new File(input);
+        JarFile jar = new JarFile(inputFile);
         try (ZipInputStream jarInputStream = new ZipInputStream(Files.newInputStream(inputFile.toPath()))) {
             ZipEntry zipEntry;
             while ((zipEntry = jarInputStream.getNextEntry()) != null) {
+                if(zipEntry.getName().startsWith("META-INF"))
+                    continue;
                 if (zipEntry.getName().endsWith(".class")) {
+                    System.out.println(zipEntry.getName());
                     ClassReader reader = new ClassReader(jarInputStream);
                     ClassNode classNode = new ClassNode();
                     reader.accept(classNode, 0);
