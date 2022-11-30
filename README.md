@@ -1,6 +1,6 @@
 <div align="center"><h1>OpenEctasy</h1></div>
 <div align="center">
-    <a href="https://github.com/Body-Alhoha/OpenEctasy/issues"><img alt="Open issues" src="https://img.shields.io/github/issues-raw/VoxelHax/OpenBukloit"/></a>
+    <a href="https://github.com/Body-Alhoha/OpenEctasy/issues"><img alt="Open issues" src="https://img.shields.io/github/issues-raw/Body-Alhoha/OpenEctasy"/></a>
     <a href="https://github.com/Body-Alhoha/OpenEctasy/releases/latest"><img alt="GitHub downloads" src="https://img.shields.io/github/downloads/Body-Alhoha/OpenEctasy/total"></a>
     <img alt="Code size" src="https://img.shields.io/github/languages/code-size/Body-Alhoha/OpenEctasy"/>
     <a href="https://discord.gg/launcher"><img alt="Discord" src="https://img.shields.io/discord/1039864699640107118"></a>
