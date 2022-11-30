@@ -5,6 +5,7 @@
     <img alt="Code size" src="https://img.shields.io/github/languages/code-size/Body-Alhoha/OpenEctasy"/>
     <a href="https://discord.gg/launcher"><img alt="Discord" src="https://img.shields.io/discord/1039864699640107118"></a>
 </div>
+<hr>
 <b>OpenEctasy</b> is an lightweight, open source version of <a href="https://ectasy.club">Ectasy</a><br>
 Inspired of <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
 
