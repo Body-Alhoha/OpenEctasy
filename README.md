@@ -19,3 +19,5 @@ Once the plugin is enabled on a server, type `~ectasy~` in the chat, to automati
 You will need the following libraries: <br>
 - https://commons.apache.org/proper/commons-io/
 - https://asm.ow2.io/
+
+Feel free to contribute
