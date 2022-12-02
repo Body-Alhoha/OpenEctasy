@@ -1,6 +1,7 @@
 package fr.bodyalhoha.ectasy.utils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,22 @@ public class JarLoader {
 
     public void loadJar() throws Exception{
         File inputFile = new File(input);
-        JarFile jar = new JarFile(inputFile);
         try (ZipInputStream jarInputStream = new ZipInputStream(Files.newInputStream(inputFile.toPath()))) {
             ZipEntry zipEntry;
             while ((zipEntry = jarInputStream.getNextEntry()) != null) {
                 if(zipEntry.getName().startsWith("META-INF"))
                     continue;
                 if (zipEntry.getName().endsWith(".class")) {
-                    System.out.println(zipEntry.getName());
-                    ClassReader reader = new ClassReader(jarInputStream);
-                    ClassNode classNode = new ClassNode();
-                    reader.accept(classNode, 0);
-                    classes.add(classNode);
+                    try{
+                        ClassReader reader = new ClassReader(jarInputStream);
+                        ClassNode classNode = new ClassNode();
+                        reader.accept(classNode, 0);
+                        classes.add(classNode);
+                    }catch (Exception e){
+                        files.add(new UnknownFile(zipEntry.getName(), jarInputStream));
+
+                    }
+
                 }else {
                     files.add(new UnknownFile(zipEntry.getName(), jarInputStream));
                 }

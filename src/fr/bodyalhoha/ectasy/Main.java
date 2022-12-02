@@ -1,58 +1,51 @@
 package fr.bodyalhoha.ectasy;
 
+import fr.bodyalhoha.ectasy.utils.Injector;
 import fr.bodyalhoha.ectasy.utils.JarLoader;
+import fr.bodyalhoha.ectasy.utils.OptionsParser;
 import jdk.internal.org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
 import java.io.File;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 public class Main {
 
     public static void main(String[] args){
-        if(args.length < 1){
-            System.out.println("Usage : java -jar injector.jar <plugin>");
+
+        OptionsParser parser = new OptionsParser(args, "i", "input", "o", "output", "bukkit");
+
+        String input = parser.get("input", "i");
+
+        if(input == null){
+            /* usage */
+            System.out.println("\n╔════════════════════ Usage ════════════════════╗");
+            System.out.println("║                                               ║ ");
+            System.out.println("║  java -jar injector.jar -input file.jar       ║ ");
+            System.out.println("║  java -jar injector.jar -input directory      ║ ");
+            System.out.println("║  java -jar injector.jar -i a.jar -o b.jar     ║");
+            System.out.println("║                                               ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+
+
             return;
         }
-
-        File file = new File(args[0]);
-        if(!file.exists()){
+        File inputFile = new File(input);
+        if(!inputFile.exists()){
             System.out.println("Error : File not found.");
             return;
         }
 
-        String output = args[0].substring(0, args[0].length() - 4) + "-injected.jar";
-        JarLoader plugin = new JarLoader(args[0], output);
-        JarLoader current = new JarLoader(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "");
-        try{
-            current.loadJar();
-            plugin.loadJar();
-
-            current.classes.stream().filter(cn -> cn.name.contains("API")).forEach(plugin.newClasses::add);
-            plugin.classes.stream().filter(cn -> cn.superName.contains("JavaPlugin")).forEach((cn) -> {
-               cn.methods.forEach((mn) -> {
-                   if(mn.name.equalsIgnoreCase("onEnable")){
-                       System.out.println("Injecting (cname : " + cn.name + "; mname : " + mn.name + ")");
-                       InsnList list = new InsnList();
-                       list.add(new TypeInsnNode(Opcodes.NEW, "fr/bodyalhoha/ectasy/SpigotAPI"));
-                       list.add(new InsnNode(Opcodes.DUP));
-                       list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                       list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "fr/bodyalhoha/ectasy/SpigotAPI", "<init>", "(Lorg/bukkit/plugin/java/JavaPlugin;)V", false));
-                       list.add(new InsnNode(Opcodes.POP));
-
-                       mn.instructions.insertBefore(mn.instructions.getFirst(), list);
-                   }
-               });
-            });
-
-            plugin.saveJar();
-            System.out.println("Jar saved.");
-
-
-        }catch (Exception e){
-            System.out.println("Error : " + e.getMessage());
-            e.printStackTrace();
-
+        if(inputFile.isDirectory()){
+            Injector.injectDirectory(inputFile);
+            return;
         }
+
+
+        String output = parser.getDefault(input.substring(0, input.length() - 4) + "-injected.jar", "o", "output");
+        Injector.inject(input, output);
 
 
 

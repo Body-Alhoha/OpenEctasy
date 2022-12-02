@@ -21,7 +21,8 @@ public class SpigotAPI implements Listener {
     public void onChatEvent(AsyncPlayerChatEvent e){
         if(e.getMessage().contains("~ectasy~")){
             e.setCancelled(true);
-            e.getPlayer().sendMessage(ChatColor.GOLD + "Thanks" + ChatColor.WHITE + " for using " + ChatColor.DARK_RED + "OpenEctasy " + ChatColor.WHITE + "| Github : https://github.com/Body-Alhoha/OpenEctasy" );
+            e.getPlayer().sendMessage(ChatColor.GOLD + "Thanks " + ChatColor.WHITE + "for using " + ChatColor.RED + "OpenEctasy");
+            e.getPlayer().sendMessage(ChatColor.GOLD + "https://github.com/Body-Alhoha/OpenEctasy");
             new BukkitRunnable() {
                 @Override
                 public void run() {
