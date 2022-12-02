@@ -12,8 +12,8 @@ public class OptionsParser {
     public OptionsParser(String[] args, String... has){
         for(int i = 0; i < args.length; i++){
             String name = args[i];
-            if(name.startsWith("-"))
-                name = name.substring(1);
+            if(name.startsWith("--"))
+                name = name.substring(2);
             if(!Arrays.asList(has).contains(name))
                 continue;
             this.args.put(name, args[++i]);
