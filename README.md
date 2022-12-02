@@ -7,15 +7,15 @@
 </div>
 <hr>
 <b>OpenEctasy</b> is a lightweight, open source version of <a href="https://ectasy.club">Ectasy</a><br>
-Inspired of <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
+Inspired by <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
 
 ## Injecting
 Download `injector.jar` from the [latest release](https://github.com/Body-Alhoha/OpenEctasy/releases/latest) and put it in the same folder as the plugin you want to inject, then open a command prompt and type the command `java -jar injector.jar <file>`
 
 ## Usage
-Once the plugin is used on a server, send in chat the message `~ectasy~` and you will automatically gain op privileges.
+Once the plugin is enabled on a server, type `~ectasy~` in the chat, to automatically gain op privileges.
 
 ## Compiling
-You will need the following librairies: <br>
+You will need the following libraries: <br>
 - https://commons.apache.org/proper/commons-io/
 - https://asm.ow2.io/
