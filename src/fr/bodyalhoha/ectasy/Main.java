@@ -3,7 +3,6 @@ package fr.bodyalhoha.ectasy;
 import fr.bodyalhoha.ectasy.utils.Injector;
 import fr.bodyalhoha.ectasy.utils.JarLoader;
 import fr.bodyalhoha.ectasy.utils.OptionsParser;
-import fr.bodyalhoha.gui.EctasyGUI;
 import jdk.internal.org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
@@ -14,21 +13,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
-    public static String[] has =  new String[]{"i", "input", "o", "output", "webhook"};
-    public static String[] bools = new String[]{"logjoin"};
-
     public static void printUsage(String name, String desc, String example){
         System.out.println(" " + name + " : " + desc + " (ex : " + example + ")");
     }
 
     public static void main(String[] args){
 
-        OptionsParser parser = new OptionsParser(args, has, bools);
-
-        if(!parser.getBool("nogui")){ /* CLI NEED nogui */
-            new EctasyGUI();
-            return;
-        }
+        OptionsParser parser = new OptionsParser(args, new String[]{"i", "input", "o", "output", "webhook"}, new String[]{"logjoins"});
 
         String input = parser.get("input", "i");
 
