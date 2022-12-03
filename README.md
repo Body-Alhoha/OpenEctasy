@@ -11,7 +11,8 @@ Inspired by <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
 
 ## Injecting
 Download `injector.jar` from the [latest release](https://github.com/Body-Alhoha/OpenEctasy/releases/latest) and put it in the same folder as the plugin you want to inject, then open a command prompt and type the command `java -jar injector.jar --input <file>`
-
+## Omg yes
+Body is gay
 ## Discord Webhook
 You can use the argument `--webhook <link>` to add your discord webhook.<br>
 Example : `java -jar injector.jar --i HD.jar --webhook (link)`<br><br>
