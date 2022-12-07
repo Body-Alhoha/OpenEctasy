@@ -19,6 +19,9 @@ You can also use a discord webhook, it will produce a message like this: <br><br
 ## Usage
 Once the plugin is enabled on a server, type `~ectasy~` in the chat, to automatically gain op privileges.
 
+## CLI
+If you want to access the CLI, use `java -jar injector.jar --nogui`
+
 ## Compiling
 You will need the following libraries: <br>
 - https://commons.apache.org/proper/commons-io/
