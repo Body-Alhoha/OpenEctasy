@@ -16,7 +16,7 @@ public class Main {
     // List of accepted flags
     public static String[] has =  new String[]{"i", "input", "o", "output", "webhook"};
     // List of accepted boolean flags
-    public static String[] bools = new String[]{"logjoins"};
+    public static String[] bools = new String[]{"nogui", "logjoins"};
 
     /**
      * Prints the usage information for a flag

