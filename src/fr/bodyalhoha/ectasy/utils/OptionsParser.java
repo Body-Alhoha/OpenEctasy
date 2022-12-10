@@ -48,7 +48,7 @@ public class OptionsParser {
             if (args.containsKey(name))
                 return args.get(name);
         }
-        return "";
+        return null;
     }
     /**
      * Returns the value of the first provided argument that is present in the args map,
