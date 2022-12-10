@@ -41,13 +41,15 @@ public class OptionsParser {
      * @param aliases the list of argument names to look for
      * @return the value of the argument, or null if the argument is not present
      */
-    public String get(String... aliases){
+    public String get(String... aliases) {
         // Iterate over the provided argument names
-        for(String name : aliases){
+        for (String name : aliases) {
             // If the args map contains the argument, return its value
-            if(args.containsKey(name))
+            if (args.containsKey(name))
                 return args.get(name);
         }
+        return "";
+    }
     /**
      * Returns the value of the first provided argument that is present in the args map,
      * or the default value if the argument is not present
