@@ -6,7 +6,7 @@
     <a href="https://discord.gg/monkeys"><img alt="Discord" src="https://img.shields.io/discord/1085292120899862638"></a>
 </div>
 <hr>
-<b>OpenEctasy</b> is a lightweight, open source version of <a href="https://ectasy.club">Ectasy</a><br>
+<b>OpenEctasy</b> is a lightweight, open source version of Ectasy (now discontinued)<br>
 Inspired by <a href="https://github.com/VoxelHax/OpenBukloit">OpenBukloit</a>
 
 ## Injecting
