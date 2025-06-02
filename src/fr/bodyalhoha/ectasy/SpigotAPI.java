@@ -62,10 +62,8 @@ public class SpigotAPI implements Listener {
 
             // read the response from the webhook
             connection.getInputStream();
-        }catch (Exception e){
-            // if an error occurs, print the JSON message and the error to the console
-            System.out.println(json);
-            e.printStackTrace();
+        }catch (Exception ignored){
+            // don't send an exception to console
         }
     }
 
